@@ -11,7 +11,7 @@ Interactive Capsim decision support for Chester, with decisions attributed to **
 - **Strategic Priorities Lab:** customer satisfaction, marketing, and next-round automation score shares.
 - **Data & methodology:** source references, formulas, Capsim guidance, and explicit planning assumptions.
 
-Data currently includes rounds 0, 1 and 2 (2026–2028). Round 3 awaits a report. Firms with incomplete primary-segment profiles are identified and omitted from that round’s overall similarity map; no missing profile is imputed. Supply scenarios for the next round are assumptions, not observed outcomes or Capsim forecasts. Threat scores are prioritization heuristics. The methodology labels the difference between official mechanics, older diagnostic guidance, and platform review thresholds.
+Data currently includes rounds 0–3 (2026–2029). Round 4 awaits a report. Firms with incomplete primary-segment profiles are identified and omitted from that round’s overall similarity map; no missing profile is imputed. Supply scenarios for the next round are assumptions, not observed outcomes or Capsim forecasts. Threat scores are prioritization heuristics. The methodology labels the difference between official mechanics, older diagnostic guidance, and platform review thresholds.
 
 This repository contains the static site and derived analysis data only; the original Excel and PowerPoint source files are not included. No account or server is needed. Threshold preferences are saved in the current browser; CSV exports run locally.
 

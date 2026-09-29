@@ -7,3 +7,9 @@
 @media print{.decision-queue{max-height:none}.stats-row{grid-template-columns:repeat(4,1fr)}.empire-banner{background:#fff;color:#572033}.empire-banner h2{color:#572033}.command-grid{display:block}.decision-item{break-inside:avoid}.threshold-panel{display:none}}
 
 .tabs[aria-label="Chester products"] .tab:last-child{margin-left:0}
+
+@media(max-width:980px){
+  .timeline{flex-wrap:wrap}
+  .timeline .rounds{order:2;flex-basis:100%;min-width:0;overflow-x:auto}
+  .timeline input{margin-left:auto}
+}
