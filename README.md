@@ -1,20 +1,33 @@
-# Chester Empire Analytics Platform
+# Chester Analytics Platform
 
-Interactive Capsim decision support for Chester, with decisions attributed to **Gengjun Intelligence**. Burgundy, gold, and a crown for the permanent focal company.
+Chester-focused Capsim board overview, round review, operating history, competitor maps, and Strategic Priorities Lab. Decisions are attributed to Gengjun Intelligence. Static HTML, CSS and JavaScript; no build or external browser dependencies.
 
-[Open the platform](https://steven-alexander-lucardi.github.io/competitive-atlas/).
+## Add a round
 
-- **Decision cockpit:** prioritized evidence, suggested actions, editable review thresholds, and all five rivals ranked by a transparent pressure score.
-- **Round review:** a reconciled company profit bridge, product changes, and rival comparisons, separating observations from possible explanations.
-- **Capacity & inventory:** adjustable demand and buffer scenarios, fixed-production stress tests, source calculations, and a full competitive field.
-- **Competitive positions:** segment maps, exact MDS input distances, movements across rounds, and all-company strategy similarity.
-- **Strategic Priorities Lab:** customer satisfaction, marketing, and next-round automation score shares.
-- **Data & methodology:** source references, formulas, Capsim guidance, and explicit planning assumptions.
+Run `python scripts/build_data.py /path/to/CP137097_1_round_2_2028.xlsx` using Python with numpy and openpyxl. Existing source rounds and the initial pooled round 0/1 scaling remain in `data/`. Rebuild updates every map, pair distance, time control and priority view. Review any new ownership or missing-segment errors before publishing. Each workbook's Production rows and segment tables are retained with cell references. No data is fabricated for unavailable rounds.
 
-Data currently includes rounds 0–7 (2026–2033). Round 8 awaits a report. Firms with incomplete primary-segment profiles are identified and omitted from that round’s overall similarity map; no missing profile is imputed. A product listed in a sales segment without a primary Production segment remains in the relevant sales, marketing, satisfaction, and all-listed-product views and is marked unclassified. Supply scenarios for the next round are assumptions, not observed outcomes or Capsim forecasts. Threat scores are prioritization heuristics. The methodology labels the difference between official mechanics, older diagnostic guidance, and platform review thresholds.
+Serve `public/` to preview. Publish all files in `public/` to the root of the GitHub repository at https://github.com/Steven-Alexander-Lucardi/competitive-atlas. GitHub Pages serves the main branch at https://steven-alexander-lucardi.github.io/competitive-atlas/.
 
-This repository contains the static site and derived analysis data only; the original Excel and PowerPoint source files are not included. No account or server is needed. Threshold preferences are saved in the current browser; CSV exports run locally.
+## Offline version and publication
 
-## Update a future round
+Run `python scripts/package_offline.py competitive-atlas.html` after importing new rounds to make one HTML file containing the full site and data. Open that file in a browser; no server or internet connection is required. CSV exports and the JSON data download also work offline.
 
-Use the source package retained outside this repository to import the new workbook, rebuild and verify the analysis, and replace all files from its `public/` directory here. Preserve the archived rounds and frozen MDS feature scales. GitHub Pages publishes from the root of `main`.
+The site is published on GitHub Pages. This source package retains the imported reports and frozen model scales needed for future rounds; only the static public files are published. No unavailable round is fabricated.
+
+## Review tools
+
+The board overview summarizes the complete simulation, financial trajectory, segment strategy, portfolio development and final company standings. Threat scores combine satisfaction (40%), listed potential demand (35%) and exact nine-attribute similarity to Chester (25%); overall weights follow Chester's segment unit sales. The score is an explicit prioritization heuristic, not a prediction of rival behavior.
+
+The round review reconciles net profit through sales, variable costs, depreciation, SG&A, other costs, interest, taxes and profit sharing. It compares product changes with every rival and distinguishes observations from interpretations.
+
+The supply board applies segment growth to listed potential sales, then lets Gengjun Intelligence change demand, target inventory and the stress-test range. Production equals demand plus target stock less existing inventory, floored at zero and capped at twice next-round first-shift capacity. All quantities are thousands of units. The previous report's capacity is only an opening reference; utilization is read directly from the current report.
+
+Capsim sources and formulas are linked in Data & methodology. Theoretical two-shift capacity, a one-year capacity purchase lag and second-shift labor premiums come from official guidance. Alert cutoffs are labeled review rules; the older margin/utilization rubric is not represented as a mandatory Capstone 2.0 target. The simulation is complete through round 8.
+
+## Model
+
+The slide model uses the nine attributes in Competitor Analysis2026_L slide 11. Age, performance, size, MTBF, price, material and labor costs come from Production. Awareness and accessibility come from the relevant segment's Top Products table. Production-only omits those last two attributes. Features are z-standardized using pooled round 0/1 population means and standard deviations separately per segment and cohort. Constant features use a divisor of 1. Scalers are frozen for later imports. Classical MDS jointly embeds all available rounds on common axes (computed by equivalent SVD for Euclidean data). Exact distances, rather than projected map distances, drive rankings. Axes may change when new rounds are appended; distances do not. Stress reports the normalized distance reconstruction error for the displayed round.
+
+Company profiles concatenate the mean standardized primary-product attributes for each of the five segments and divide by sqrt(5), giving segments equal weight. Overall distance is the root mean square of the five segment-profile distances. This measures product strategy similarity, not all corporate strategic choices. Firms missing any primary-segment profile are omitted from that round’s overall map and named in a visible notice. Prior profiles are retained, and unavailable distances or pressure scores are not imputed.
+
+CSS sums all listed products owned by each company within a segment, including cross-segment sales. Marketing equally averages mean listed-product awareness and mean segment accessibility per firm. Marketing avoids repeatedly adding accessibility when a firm has several products. Automation sums Auto. Next Round for primary-segment products and represents next-round settings, not current productivity. Each indicator is divided by the sum across all six firms in that segment. It is a score share, not market share or resource allocation. Color is on a fixed 0–40% share scale, capped visually at 40%, preserving comparability across firms and rounds. Percentages remain uncapped. An absent listed product contributes no CSS; source tables may omit minor products.
